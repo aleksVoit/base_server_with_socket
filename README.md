@@ -56,3 +56,14 @@ Hint
 To implement the Voluemes mechanism, you need to check the existence of the Storage 
 Catalog and the Data.json file at the start of the program. And if they are absent, 
 then create them.
+
+
+# Part 2 - creating docker image
+
+to create docker image you can use command:
+'docker build . -t <container_name>'
+
+to run docker image you can use command:
+'docker run -p <host_port>:3000 <container_name>'
+
+
