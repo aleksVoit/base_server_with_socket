@@ -1,6 +1,8 @@
 import json
+import os
 import socket
 import logging
+from pathlib import Path
 
 UDP_IP = '127.0.0.1'
 UDP_PORT = 5000
@@ -20,6 +22,10 @@ def run_socket_server(ip, port):
             value = json.loads(b_value.decode())
 
             logging.debug(f'Received data: {key}  and {value} from: {address}')
+
+            if not os.path.exists('storage/data.json'):
+                with open('storage/data.json', 'w') as file:
+                    file.write('{}')
 
             with open('storage/data.json', 'r') as file:
                 existing_json_file = json.load(file)
