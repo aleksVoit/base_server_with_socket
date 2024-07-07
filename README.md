@@ -60,10 +60,17 @@ then create them.
 
 # Part 2 - creating docker image
 
-to create docker image you can use command:
-'docker build . -t <container_name>'
+# to build a docker image on macOS required --platform=linux/amd64
+docker build . --platform=linux/amd64 -t aleksandrvoitushenko/hw_4:0.0.1
+# to push docker image into docker hub
+docker push aleksandrvoitushenko/hw_4:0.0.1
+# to pull docker image from docker hub
+docker pull aleksandrvoitushenko/hw_4:0.0.1
+# to start container
+docker run --name hw_4-_app -p 3000:3000 -v /root/data:/base_server/storage aleksandrvoitushenko/hw_4:0.0.1
 
-to run docker image you can use command:
-'docker run -p <host_port>:3000 <container_name>'
+docker run --name hw_4-_app -p 3000:3000 -v /Users/aleksandr.voitushenko/Desktop/GoIT/PythonWeb24/base_server_with_socket/storage:/base_server/storage aleksandrvoitushenko/hw_4:0.0.1
+
+
 
 

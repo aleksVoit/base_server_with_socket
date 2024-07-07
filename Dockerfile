@@ -1,15 +1,7 @@
-FROM ubuntu:20.04
-
-RUN apt update
-RUN apt install -y python3
-RUN apt install -y python3-pip
+FROM python:3.11.9-slim-bookworm
 
 WORKDIR /base_server
 
 COPY . .
 
-RUN pip install -r requirements.txt
-
-RUN chmod +x start.sh
-
-CMD ["./start.sh"]
+CMD ["python3", "main.py"]

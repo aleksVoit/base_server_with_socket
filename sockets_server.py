@@ -4,15 +4,16 @@ import socket
 import logging
 from pathlib import Path
 
-UDP_IP = '127.0.0.1'
+UDP_IP = '0.0.0.0'
 UDP_PORT = 5000
 
 logging.basicConfig(level='DEBUG')
 
 
-def run_socket_server(ip, port):
+def run_socket_server():
+    print('run socket server')
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    server = ip, port
+    server = UDP_IP, UDP_PORT
     sock.bind(server)
     try:
         while True:
@@ -33,7 +34,7 @@ def run_socket_server(ip, port):
             existing_json_file[key] = value
 
             with open('storage/data.json', 'w') as file:
-                json.dump(existing_json_file, file, indent=4)
+                json.dump(existing_json_file, file, indent=4, ensure_ascii=False)
 
             logging.debug(f'{key}: {value} were added to file')
             sock.sendto(f'{key}: {value} were added to json file'.encode(), address)
@@ -45,4 +46,4 @@ def run_socket_server(ip, port):
 
 
 if __name__ == '__main__':
-    run_socket_server(UDP_IP, UDP_PORT)
+    run_socket_server()

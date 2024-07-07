@@ -6,10 +6,12 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import urllib.parse
 import logging
 import socket
+from threading import Thread
+from sockets_server import run_socket_server
 
 logging.basicConfig(level='DEBUG')
 
-UDP_IP = '127.0.0.1'
+UDP_IP = '0.0.0.0'
 UDP_PORT = 5000
 
 
@@ -71,7 +73,7 @@ class HttpHandler(BaseHTTPRequestHandler):
 
 
 def run(server_class=HTTPServer, handler_class=HttpHandler):
-    server_address = ('', 3000)
+    server_address = ('0.0.0.0', 3000)
     http = server_class(server_address, handler_class)
     try:
         http.serve_forever()
@@ -79,5 +81,12 @@ def run(server_class=HTTPServer, handler_class=HttpHandler):
         http.server_close()
 
 
+def main():
+    server_thread = Thread(target=run)
+    server_thread.start()
+    socket_thread = Thread(target=run_socket_server)
+    socket_thread.start()
+
+
 if __name__ == '__main__':
-    run()
+    main()
